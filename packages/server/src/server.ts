@@ -2,10 +2,10 @@ import { App } from './App';
 
 const { express } = new App();
 
-express.listen(3000, (err) => {
+express.listen(process.env.PORT, (err) => {
   if (err) {
     return console.error(err);
   }
 
-  return console.info('Server is running in port: ', 3000);
+  return console.info('Server is running in port: ', process.env.PORT);
 });
