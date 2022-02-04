@@ -10,8 +10,11 @@ const dotenvExpand = require('dotenv-expand');
 const envs = dotenv.config();
 dotenvExpand.expand(envs);
 
+function getAppSrc() {
+  return path.resolve(process.cwd(), 'src');
+}
 function resolve(filePath, fileName) {
-  return path.resolve(process.cwd(), 'src', 'pages', filePath, fileName);
+  return path.resolve(getAppSrc(), 'pages', filePath, fileName);
 }
 
 const isDevMode = process.env.NODE_ENV !== 'production';
@@ -77,4 +80,34 @@ module.exports = {
     }),
   ].filter(Boolean),
   devtool: 'source-map',
+  devServer: {
+    hot: true,
+    open: ['/login.html'],
+    compress: true,
+    host: 'localhost',
+    port: 3003,
+    allowedHosts: 'all',
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': '*',
+      'Access-Control-Allow-Headers': '*',
+    },
+    static: {
+      directory: path.join(process.cwd(), 'dist'),
+      publicPath: '',
+      watch: {
+        ignored: getAppSrc(),
+      },
+    },
+    client: {
+      logging: 'info',
+      overlay: {
+        errors: true,
+        warnings: false,
+      },
+    },
+    devMiddleware: {
+      publicPath: '',
+    },
+  },
 };
