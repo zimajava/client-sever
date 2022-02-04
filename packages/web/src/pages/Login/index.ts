@@ -1,14 +1,18 @@
-import { log } from './utils';
-import './styles.scss';
+import style from './styles.module.scss';
+import svgDownload from '../../assets/svg/car.svg';
 
-interface Interface {
-  qwe: boolean;
-}
+const root = document.getElementById('root');
 
-class Class implements Interface {
-  qwe: boolean;
-}
+const fragment = document.createDocumentFragment();
 
-const qwe = new Class();
+const div = document.createElement('div');
+div.innerText = 'Test';
+div.setAttribute('class', style.test);
 
-log(qwe);
+const img = document.createElement('img');
+img.setAttribute('src', svgDownload);
+
+fragment.appendChild(div);
+fragment.appendChild(img);
+
+root.appendChild(fragment);
